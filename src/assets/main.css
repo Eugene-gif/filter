@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&display=swap");
+@import 'primeicons/primeicons.css';
+
+:root {
+  --wrapper-padding: 0 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* scrollbar-gutter: stable; */
+}
+
+body {
+  background-color: var(--p-content-background);
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  min-height: 100dvh;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-rows: 1fr min-content;
+  min-height: 100dvh;
+  height: 100dvh;
+  padding: var(--wrapper-padding);
+
+  @media(width < 768px) {
+    padding: 0 15px;
+  }
+}
+
+.footer {
+  flex: 0 0 auto;
+}

@@ -1,0 +1,71 @@
+.filter {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: min-content;
+  position: sticky;
+  top: 90px;
+
+  .box {
+    .box-name {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+  }
+
+  .radio-button,
+  .checkbox-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 5px;
+
+    label {
+      cursor: pointer;
+    }
+  }
+
+  .filter-reviews {
+    input {
+      width: 100%;
+    }
+  }
+
+  .filter-slider {
+    .slider-box {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .slider-box__inputs {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      input {
+        max-width: 150px;
+        width: 100%;
+      }
+    }
+  }
+
+  .filter-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .p-button {
+      border-radius: 15px;
+
+      @media (width < 900px) {
+        border-radius: 10px;
+      }
+
+      @media (width < 768px) {
+        border-radius: 5px;
+      }
+    }
+  }
+}

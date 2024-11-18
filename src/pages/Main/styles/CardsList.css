@@ -1,0 +1,13 @@
+.cards-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+}
