@@ -1,4 +1,4 @@
-# [Тестовое задание для Rocket Science](https://eugene-gif.github.io/filter/)
+# [Filter](https://eugene-gif.github.io/filter/)
 
 ## Описание ТЗ:
 Внешний вид значения не имеет, реализовать полностью на фронте на react/vue (vue
