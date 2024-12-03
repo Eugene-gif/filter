@@ -111,13 +111,15 @@
     }
   };
 
+  const getCopyHotels = () => props.hotels.map((hotel) => {
+      return { ...hotel };
+    })
+
   // Главный фильтр
   const mainFilter = () => {
     let hotelsCopy = [];
 
-    hotelsCopy = props.hotels.map((hotel) => {
-      return { ...hotel };
-    });
+    hotelsCopy = getCopyHotels();
 
     const filtersList = [
       (arr) => filterByCountry(arr, selectedCountries.value),
@@ -188,7 +190,7 @@
   };
 
   // Очистить фильтр
-  const clearFilter = () => {
+  const clearFilter = () => { 
     if (!isFilter.value) return;
 
     selectedCountries.value = [];
@@ -196,7 +198,7 @@
     selectedRating.value = [];
     selectedNumReviews.value = null;
     selectedRange.value = [null, null];
-    onUpdateFilteredHotels([]);
+    onUpdateFilteredHotels(getCopyHotels());
     onUpdateIsEmpty(false);
     onUpdateIsCleanFlag(false);
   };

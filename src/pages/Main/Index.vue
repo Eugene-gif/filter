@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, onMounted } from "vue";
+  import { ref, reactive, onMounted, watch } from "vue";
   import { hotelsApi } from "@/api/hotels";
   import { useLoading } from "@/composables/useLoading";
   import { Paginator } from "primevue";
@@ -9,6 +9,7 @@
   const hotels = ref([]);
   const filteredHotels = ref([]);
   const displayList = ref([]);
+  const resultHotels = reactive([]);
   const isEmpty = ref(false);
   const isCleanFlag = ref(false);
   const { loading, load } = useLoading();
@@ -21,12 +22,49 @@
     pageCount: 2,
   });
 
+  watch(
+    () => filteredHotels.value,
+    (newfilteredHotels) => {
+      paginateOptions.value = {
+        ...paginateOptions.value,
+        page: 0,
+        first: 0,
+      };
+
+      setNewHotelListPage({
+        paginateOptions: paginateOptions.value,
+        hotels: newfilteredHotels,
+      });
+    }
+  );
+
+  watch(
+    () => paginateOptions.value,
+    (newPaginateOptions) => {
+      setNewHotelListPage({
+        paginateOptions: newPaginateOptions,
+        hotels: filteredHotels.value,
+      });
+    }
+  );
+
+  const setNewHotelListPage = ({ hotels, paginateOptions }) => {
+    const { first, rows } = paginateOptions;
+
+    displayList.value = hotels.slice(first, first + rows);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
   // Получение всех отелей
   const getAllHotels = async () => {
     load.start();
     const resp = await hotelsApi.getAll();
     hotels.value = resp;
-    paginate();
+    filteredHotels.value = resp;
     load.end();
   };
 
@@ -58,8 +96,6 @@
     filteredHotels.value = arr.map((el) => {
       return { ...el };
     });
-
-    paginate(paginateOptions.value);
   };
 
   const updateIsEmpty = (bool) => {
@@ -67,35 +103,11 @@
   };
 
   const clearFilter = (flag) => {
-    if (flag === true) {
-      isCleanFlag.value = true;
-      return;
-    }
-
-    isCleanFlag.value = false;
+    isCleanFlag.value = flag;
   };
 
   const paginate = (obj) => {
-    let list = null;
-
-    if (obj) {
-      paginateOptions.value = { ...obj };
-    }
-
-    const { page, first, rows, pageCount } = paginateOptions.value;
-
-    if (filteredHotels.value.length) {
-      list = filteredHotels.value.slice(first, first + rows);
-    } else {
-      list = hotels.value.slice(first, first + rows);
-    }
-
-    displayList.value = list;
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    paginateOptions.value = { ...obj };
   };
 
   onMounted(getAllHotels);
@@ -124,6 +136,7 @@
       />
       <Paginator
         class="paginator"
+        :first="paginateOptions.first"
         :rows="3"
         :totalRecords="
           filteredHotels.length
