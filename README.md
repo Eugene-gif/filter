@@ -1,4 +1,5 @@
-# [Filter](https://eugene-gif.github.io/filter/)
+<h1><a href="https://eugene-gif.github.io/filter/">Filter</a></h1> 
+<a href="https://github.com/Eugene-gif/filter">Repo</a>
 
 ## Описание ТЗ:
 Внешний вид значения не имеет, реализовать полностью на фронте на react/vue (vue
